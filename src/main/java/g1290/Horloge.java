@@ -19,6 +19,7 @@ public class Horloge implements Observable {
         while (true) {
 //
             System.out.println("heure en debut de loop run: "+hour);
+            updateObservateur();
             this.hour = this.cal.get(Calendar.HOUR_OF_DAY) + " : "
                      + (this.cal.get(Calendar.MINUTE) < 10 ?
                          "0" + this.cal.get(Calendar.MINUTE)
@@ -27,6 +28,7 @@ public class Horloge implements Observable {
                          "0" + this.cal.get(Calendar.SECOND)
                          : this.cal.get(Calendar.SECOND));
             System.out.println("heure avant try dans loop run: "+hour);
+            updateObservateur();
             try {
                 Thread.sleep(1000);
                 System.out.println("heure apres sleep dans loop run: "+this.hour);
@@ -40,22 +42,21 @@ public class Horloge implements Observable {
     @Override
     public void addObservateur(Observateur obs) {
         this.observateurs.add(obs);
-        System.out.println("observateur ajouté");
+        System.out.println(obs + " ajouté");
     }
 
     @Override
     public void updateObservateur() {
-        System.out.println("update fonctionne");
         for (Observateur obs : this.observateurs) {
+            System.out.println("update sent for "+obs);
             obs.update(this.hour);
-            System.out.println("update for "+obs);
         }
     }
 
     @Override
     public void delObservateur(Observateur obs) {
         this.observateurs.remove(obs);
-        System.out.println("observateur supprimé");
+        System.out.println(obs + " supprimé");
     }
 
     public List<Observateur> getObservateurs() {

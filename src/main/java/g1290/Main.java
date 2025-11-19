@@ -9,10 +9,9 @@ public class Main {
         h.addObservateur(fen);
 
         for(Observateur o: h.getObservateurs())
-            System.out.println("liste d'observateurs de l'horloge: "+ o);
+            System.out.println("liste d'observateurs de l'horloge: \n\t"+ o+"\n");
 
-//        h.run();
-        h.updateObservateur();
+        h.run();
 
     }
 }

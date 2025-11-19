@@ -20,7 +20,7 @@ public class Fenetre extends JFrame implements Observateur {
         this.setSize(200, 80);
 //
         this.horloge = new Horloge();
-//      horloge.run();
+//
         Font police = new Font("DS-digital", Font.TYPE1_FONT, 30);
         this.label.setFont(police);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -31,7 +31,10 @@ public class Fenetre extends JFrame implements Observateur {
 
     @Override
     public void update(String hour) {
-        System.out.println("Il est actuellement " + hour);
+        if (hour.isEmpty())
+            System.out.println("\tIl n'y a pas d'heure encore enristrée");
+        else
+            System.out.println("\tIl est actuellement " + hour);
         this.label.setText(hour);
     }
 
