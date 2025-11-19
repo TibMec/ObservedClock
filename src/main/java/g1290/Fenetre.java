@@ -1,7 +1,6 @@
 package g1290;
 
 import java.awt.*;
-import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -9,7 +8,8 @@ public class Fenetre extends JFrame implements Observateur {
 
     private JLabel label = new JLabel();
     private Horloge horloge;
-    private String name = "Fenetre Observatrice de clock";
+    private static int AUTO_GEN = 0;
+    private String name = "Fenetre Observatrice de clock" + AUTO_GEN++;
 
 
     public Fenetre() {

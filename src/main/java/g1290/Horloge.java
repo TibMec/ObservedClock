@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class Horloge implements Observable {
     private List<Observateur> observateurs;
     Calendar cal;
@@ -15,22 +17,29 @@ public class Horloge implements Observable {
         this.observateurs = new ArrayList<>();
     }
 
+    public void setHour() {
+        this.hour = this.cal.get(Calendar.HOUR_OF_DAY) + " : "
+                + (this.cal.get(Calendar.MINUTE) < 10 ?
+                    "0" + this.cal.get(Calendar.MINUTE)
+                    : this.cal.get(Calendar.MINUTE)) + ":"
+                + ((this.cal.get(Calendar.SECOND) < 10) ?
+                    "0" + this.cal.get(Calendar.SECOND)
+                    : this.cal.get(Calendar.SECOND));
+    }
+
     public void run() {
         while (true) {
-//
-            System.out.println("heure en debut de loop run: "+hour);
+            System.out.println("heure en debut de loop run: "
+                    +(hour.isEmpty()?
+                        "néant"
+                        : hour));
             updateObservateur();
-            this.hour = this.cal.get(Calendar.HOUR_OF_DAY) + " : "
-                     + (this.cal.get(Calendar.MINUTE) < 10 ?
-                         "0" + this.cal.get(Calendar.MINUTE)
-                         : this.cal.get(Calendar.MINUTE)) + ":"
-                            + ((this.cal.get(Calendar.SECOND) < 10) ?
-                         "0" + this.cal.get(Calendar.SECOND)
-                         : this.cal.get(Calendar.SECOND));
+            setHour();
             System.out.println("heure avant try dans loop run: "+hour);
             updateObservateur();
             try {
                 Thread.sleep(1000);
+                setHour();
                 System.out.println("heure apres sleep dans loop run: "+this.hour);
                 updateObservateur();
             } catch (InterruptedException e) {
